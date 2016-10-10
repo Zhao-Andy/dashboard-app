@@ -16,9 +16,9 @@ class Api::EmployeesController < ApplicationController
       user_id: current_user.id
     )
     if @employee.valid?
-      render json: @employee, status: 200
+      render json: {success: "Employee added!" }
     else
-      render json: @employee.errors.full_messages, status: 422
+      render json: {danger: @employee.errors.full_messages, status: 422 }
     end
   end
 
@@ -41,5 +41,6 @@ class Api::EmployeesController < ApplicationController
   def destroy
     @employee = Employee.find_by(id: params[:id])
     @employee.destroy
+    render json: {success: "Employee deleted!" }
   end
 end

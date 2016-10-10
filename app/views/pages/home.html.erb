@@ -15,7 +15,7 @@
         <td>{{employee.last_name}}</td>
         <td>{{employee.email}}</td>
         <td>{{employee.hiring_date}}</td>
-        <td><button type="button" class="btn btn-warning btn-xs" ng-click="editing = true">Edit Employee</button></td>
+        <td><button type="button" class="btn btn-warning btn-xs">Edit Employee (not working)</button></td>
         <td><button type="button" class="btn btn-danger btn-xs" ng-click="deleteEmployee(employee)">Delete Employee</button></td>
       </tr>
       <tr>
@@ -23,7 +23,7 @@
         <td><input type="text" class="form-control" ng-model="newEmployee.lastName" placeholder="New Employee Last Name"></td>
         <td><input type="text" class="form-control" ng-model="newEmployee.email" placeholder="New Employee Email"></td>
         <td><input type="text" class="form-control" ng-model="newEmployee.hiringDate" placeholder="New Employee Hiring Date"></td>
-        <td><button class="btn btn-success btn-xs" ng-submit="createEmployee(newEmployee, <%= current_user.id %>)">Add Employee</button></td>
+        <td><button class="btn btn-success btn-xs" ng-click="createEmployee(newEmployee, <%= current_user.id %>)">Add Employee</button></td>
         <td></td>
       </tr>
     </table>

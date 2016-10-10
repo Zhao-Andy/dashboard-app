@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  angular.module("app").controller("employeeCtrl", function($scope, $http) {
+  angular.module("app").controller("employeeCtrl", function($scope, $http, $timeout) {
     // Read/Index
     $scope.index = function() {
       $http.get('/api/employees.json').then(function(response) {
@@ -36,15 +36,17 @@
         hiring_date: employee.hiringDate,
         user_id: userId
       };
-      $http.post('/api/employees', params);
-      $scope.index();
+      $http.post('/api/employees', params).then(function(response) {
+        var successMessage = response.data.success;
+        $scope.index();
+      });
+      $timeout(function() {
+        var successMessage = null;
+      }, 1000);
+
     };
 
-    // Edit/Update
-    $scope.enableEdit = function() {
-
-    };
-
+    // Edit/Update - work in progress
     $scope.editEmployee = function(employee) {
       var params = {
         first_name: employee.firstName,
