@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  angular.module("app").controller("employeeCtrl", function($scope, $http, $timeout) {
+  angular.module("app").controller("employeeCtrl", ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
     // Read/Index
     $scope.index = function() {
       $http.get('/api/employees.json').then(function(response) {
@@ -64,5 +64,5 @@
       $scope.index();
     };
 
-  });
+  }]);
 })();
