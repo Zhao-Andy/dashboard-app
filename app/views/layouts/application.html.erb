@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DashboardApp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body ng-app="app">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Home</a>
+        </div>
+
+
+          <ul class="nav navbar-nav navbar-right">
+            <% unless current_user %>
+                    <li><%= link_to 'Login', "/login", method: 'get' %></li>
+                    <li><%= link_to 'Create an account', "/signup", method: 'get' %></li>
+                  <% end %>
+                  <% if current_user %>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.email %><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to 'Profile', "/profile", method: 'get' %></li>
+                      <li role="separator" class="divider"></li>
+                        <% if current_user %>
+                          <li><%= link_to "Logout", "/logout", method: 'delete' %></li>
+                        <% else %>
+                          <li><%= link_to 'Login', "/login", method: 'get' %></li>
+                        <% end %>
+                      <% end %>
+          </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+    <% flash.each do |name, message| %>
+      <div class="alert alert-<%= name %> alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+        <% if message.is_a?(Array) %>
+        <ul>
+          <% message.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+        <% else %>
+          <h5><%= message %></h5>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+  </body>
+</html>

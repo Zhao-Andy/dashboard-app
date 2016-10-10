@@ -1,0 +1,31 @@
+<div ng-controller="employeeCtrl" ng-init="index()">
+  <h1><%= current_user.name %>'s Dashboard</h1>
+
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th ng-click="sortBy('first_name')">First Name<span ng-click="sortBy('employee.first_name')" ng-class="sortByOrderArrow('first_name')" class="pull-right"></span></th>
+        <th ng-click="sortBy('last_name')">Last Name<span ng-class="sortByOrderArrow('last_name')" class="pull-right"></span></th>
+        <th ng-click="sortBy('email')">Email<span ng-class="sortByOrderArrow('email')" class="pull-right"></span></th>
+        <th ng-click="sortBy('hiring_date')">Hiring Date (Year, month, day)<span ng-class="sortByOrderArrow('hiring_date')" class="pull-right"></span></th>
+        <th id="no-sort"></th>
+        <th id="no-sort"></th>
+      </tr>
+      <tr ng-repeat="employee in employees | orderBy : sort : reverse">
+        <td>{{employee.first_name}}</td>
+        <td>{{employee.last_name}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.hiring_date}}</td>
+        <td><button type="button" class="btn btn-warning btn-xs" ng-click="editing = true">Edit Employee</button></td>
+        <td><button type="button" class="btn btn-danger btn-xs" ng-click="deleteEmployee(employee)">Delete Employee</button></td>
+      </tr>
+      <tr>
+        <td><input type="text" class="form-control" ng-model="newEmployee.firstName" placeholder="New Employee First Name"></td>
+        <td><input type="text" class="form-control" ng-model="newEmployee.lastName" placeholder="New Employee Last Name"></td>
+        <td><input type="text" class="form-control" ng-model="newEmployee.email" placeholder="New Employee Email"></td>
+        <td><input type="text" class="form-control" ng-model="newEmployee.hiringDate" placeholder="New Employee Hiring Date"></td>
+        <td><button class="btn btn-success btn-xs" ng-submit="createEmployee(newEmployee, <%= current_user.id %>)">Add Employee</button></td>
+        <td></td>
+      </tr>
+    </table>
+
+</div>
